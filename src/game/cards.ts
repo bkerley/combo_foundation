@@ -1,14 +1,3 @@
-/*
-MAJORS = %w{ fool magician priestess empress emperor hierophant
-  lovers chariot strength hermit wheel-of-fortune justice chillen death
-  temperance devil tower star moon sun judgement world }
-
-SUITS = %w{ wands cups swords pentacles }
-MINORS = %w{ ace two three four five six seven eight nine ten page knight queen king }
-
-CARDS = MAJORS + SUITS.product(MINORS).map { |suit, rank| "#{rank}-of-#{suit}" }
-*/
-
 export class Card {
   canStackOn(_other: Card): boolean {
     return false;
