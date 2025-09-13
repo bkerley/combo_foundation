@@ -1,35 +1,11 @@
 # Combo Foundation
 
-A TypeScript frontend application with Sass styling that builds to static HTML.
-
-## Features
-
-- ⚡️ Vite for fast development and building
-- 🔷 TypeScript for type safety
-- 🎨 Sass/SCSS for advanced styling with variables, mixins, and modular architecture
-- 📦 Static HTML output for easy deployment
-- 🌙 Dark/light mode support
-- 🔧 ESLint for code quality
-- 📱 Responsive utilities and mixins
+card game
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js (version 18 or higher)
-- npm or yarn
-
-### Installation
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-### Development
-
-Start the development server:
 ```bash
+npm install
 npm run dev
 ```
 
