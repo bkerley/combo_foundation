@@ -19,8 +19,8 @@ export class FortuneWell {
     }
 
     return (
-      candidate.number >= this.lowest_acceptable_number ||
-      candidate.number <= this.highest_acceptable_number
+      candidate.number == this.lowest_acceptable_number ||
+      candidate.number == this.highest_acceptable_number
     )
   }
 

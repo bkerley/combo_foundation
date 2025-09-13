@@ -36,7 +36,7 @@ export class MajorArcana extends Card {
   }
 
   name() : string {
-    return this.arcana_name
+    return `${this.arcana_name} (#${this.number})`
   }
 }
 
