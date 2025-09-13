@@ -41,7 +41,7 @@ export class MajorArcana extends Card {
 }
 
 
-const SuitNames: string[] = ['wands', 'cups', 'swords', 'pentacles']
+export const SuitNames: string[] = ['wands', 'cups', 'swords', 'pentacles']
 const RankNames = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king']
 
 

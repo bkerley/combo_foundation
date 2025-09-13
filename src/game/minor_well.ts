@@ -1,3 +1,4 @@
+import { assert } from "console"
 import { Card, MinorArcana } from "./cards.ts"
 
 export class MinorWell {
@@ -11,13 +12,19 @@ export class MinorWell {
 
     if (card.suit != this.suit) return false
 
+    if (card.rank == 1) return true
+
     return card.rank == this.lowest_acceptable_rank
   }
 
-  acceptCard(card: MinorArcana) {
+  assertAcceptsCard(card: Card): asserts card is MinorArcana {
     if (!this.canAcceptCard(card)) {
       throw new Error(`cannot accept card ${card.name()}`)
     }
+  }
+
+  acceptCard(card: Card) {
+    this.assertAcceptsCard(card)
 
     this.cards.add(card)
     this.lowest_acceptable_rank += 1

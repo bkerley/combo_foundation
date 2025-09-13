@@ -24,10 +24,14 @@ export class FortuneWell {
     )
   }
 
-  acceptCard(card: MajorArcana) {
-    if (!this.canAcceptCard(card)) {
-      throw new Error(`cannot accept card ${card.name()}`)
+  private assertAcceptsCard(candidate: Card): asserts candidate is MajorArcana {
+    if (!this.canAcceptCard(candidate)) {
+      throw new Error(`cannot accept card ${candidate.name()}`)
     }
+  }
+
+  acceptCard(card: Card) {
+    this.assertAcceptsCard(card)
     
     this.cards.add(card)
     if (card.number == this.lowest_acceptable_number) {
