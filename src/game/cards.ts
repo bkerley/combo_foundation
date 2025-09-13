@@ -1,10 +1,16 @@
+export class AbstractCardError extends Error {
+  constructor() {
+    super("can't deal with an abstract Card")
+  }
+}
+
 export class Card {
   canStackOn(_other: Card): boolean {
-    return false
+    throw new AbstractCardError()
   }
 
   name() : string {
-    return '_mystery_card_'
+    throw new AbstractCardError()
   }
 }
 
@@ -36,7 +42,7 @@ export class MajorArcana extends Card {
 
 
 const SuitNames: string[] = ['wands', 'cups', 'swords', 'pentacles']
-const RankNames = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'page', 'knight', 'queen', 'king']
+const RankNames = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king']
 
 
 export class MinorArcana extends Card {
@@ -65,7 +71,7 @@ export class MinorArcana extends Card {
   }
 
   name() : string {
-    return `${RankNames[this.rank - 1]}-of-${this.suit}`
+    return `${RankNames[this.rank - 1]} of ${this.suit}`
   }
 }
 
