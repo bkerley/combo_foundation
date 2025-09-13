@@ -1,67 +1,67 @@
 export class Card {
   canStackOn(_other: Card): boolean {
-    return false;
+    return false
   }
 
   name() : string {
-    return '_mystery_card_';
+    return '_mystery_card_'
   }
 }
 
 export class MajorArcana extends Card {
   constructor(public arcana_name: string, public number: number) {
-    super();
+    super()
   }
 
   canStackOn(other: Card): boolean {
     if (!(other instanceof MajorArcana)) {
-      return false;
+      return false
     }
 
     if (this.number == other.number + 1) {
-      return true;
+      return true
     }
 
     if (this.number == other.number - 1) {
-      return true;
+      return true
     }
 
-    return false;
+    return false
   }
 
   name() : string {
-    return this.arcana_name;
+    return this.arcana_name
   }
 }
 
 
-const SuitNames: string[] = ['wands', 'cups', 'swords', 'pentacles'];
-const RankNames = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'page', 'knight', 'queen', 'king'];
+const SuitNames: string[] = ['wands', 'cups', 'swords', 'pentacles']
+const RankNames = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'page', 'knight', 'queen', 'king']
 
 
 export class MinorArcana extends Card {
   constructor(public suit: string, public rank: number) {
-    super();
+    super()
   }
 
   canStackOn(other: Card): boolean {
     if (!(other instanceof MinorArcana)) {
-      return false;
+      return false
     }
 
     if (this.suit != other.suit) {
-      return false;
+      return false
     }
 
     if (this.rank == other.rank + 1) {
-      return true;
+      return true
     }
 
     if (this.rank == other.rank - 1) {
-      return true;
+      return true
     }
 
-    return false;
+    return false
   }
 
   name() : string {
@@ -98,8 +98,8 @@ export const Minors: MinorArcana[] = []
 
 for (const suit of SuitNames) {
   for (const rank of RankNames ) {
-    Minors.push(new MinorArcana(suit, RankNames.indexOf(rank) + 1));
+    Minors.push(new MinorArcana(suit, RankNames.indexOf(rank) + 1))
   }
 }
 
-export const Cards = [...Majors, ...Minors];
+export const Cards = [...Majors, ...Minors]

@@ -1,4 +1,4 @@
-import { Card } from './cards.js'
+import { Card } from './cards.ts'
 
 export default class Pile {
   public cards: Card[] = []
@@ -6,7 +6,7 @@ export default class Pile {
   canAcceptCard(card: Card): boolean {
     if (this.cards.length == 0) return true
 
-    let top_card = this.cards[this.cards.length - 1]
+    const top_card = this.cards[this.cards.length - 1]
     return card.canStackOn(top_card)
   }
 
@@ -19,7 +19,7 @@ export default class Pile {
   }
 
   popCard(): Card {
-    let found = this.cards.pop()
+    const found = this.cards.pop()
 
     if (!found) throw new Error("cannot pop from empty pile")
 
