@@ -8,7 +8,7 @@ const max_major_rank = Majors.
   map(c => c.number).
   reduce((a, b) => Math.max(a, b), Majors[0].number)
 
-export class FortuneWell {
+export default class FortuneWell {
   public cards: Set<MajorArcana> = new Set()
   private lowest_acceptable_number = min_major_rank
   private highest_acceptable_number = max_major_rank

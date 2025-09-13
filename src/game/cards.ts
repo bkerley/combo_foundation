@@ -12,6 +12,14 @@ export class Card {
   name() : string {
     throw new AbstractCardError()
   }
+
+  id() : string {
+    throw new AbstractCardError()
+  }
+
+  neighbor_ids() : string[] {
+    throw new AbstractCardError()
+  }
 }
 
 export class MajorArcana extends Card {
@@ -38,8 +46,23 @@ export class MajorArcana extends Card {
   name() : string {
     return `${this.arcana_name} (#${this.number})`
   }
-}
 
+  id() : string {
+    return `major-${this.number}`
+  }
+
+  neighbor_ids() : string[] {
+    const neighbors = []
+    if (this.number > 0) {
+      neighbors.push(`major-${this.number - 1}`)
+    }
+    if (this.number < Majors.length) {
+      neighbors.push(`major-${this.number + 1}`)
+    }
+
+    return neighbors
+  }
+}
 
 export const SuitNames: string[] = ['wands', 'cups', 'swords', 'pentacles']
 const RankNames = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king']
@@ -72,6 +95,22 @@ export class MinorArcana extends Card {
 
   name() : string {
     return `${RankNames[this.rank - 1]} of ${this.suit}`
+  }
+
+  id() : string {
+    return `${this.suit}-${this.rank}`
+  }
+
+  neighbor_ids() : string[] {
+    const neighbors = []
+    if (this.rank > 1) {
+      neighbors.push(`${this.suit}-${this.rank - 1}`)
+    }
+    if (this.rank < RankNames.length) {
+      neighbors.push(`${this.suit}-${this.rank + 1}`)
+    }
+
+    return neighbors
   }
 }
 

@@ -1,7 +1,7 @@
 import { SuitNames, MinorArcana } from './cards.ts'
 import Pile from './pile.ts'
-import { FortuneWell } from './fortune_well.ts'
-import { MinorWell } from './minor_well.ts'
+import FortuneWell from './fortune_well.ts'
+import MinorWell from './minor_well.ts'
 import Wedge from './wedge.ts'
 
 import shuffle from './shuffle.ts'
@@ -34,6 +34,7 @@ export default class Game {
   }
 
   sweep() {
+    // add sweep combos here
     while (this.sweepOnce()) { }
   }
 

@@ -1,7 +1,7 @@
 import { assert } from "console"
 import { Card, MinorArcana } from "./cards.ts"
 
-export class MinorWell {
+export default class MinorWell {
   constructor(public suit: string) {}
 
   public cards: Set<MinorArcana> = new Set()
