@@ -1,0 +1,23 @@
+{
+  "name": "combo-foundation",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "sass:watch": "sass --watch src/styles:src/styles --style=expanded",
+    "sass:build": "sass src/styles:src/styles --style=compressed"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "sass": "^1.92.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  }
+}
