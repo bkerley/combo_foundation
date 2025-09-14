@@ -69,7 +69,7 @@ export class WedgeRenderer extends WellRenderer {
       wedge_div.className = 'empty'
     }
 
-    let wedge_actions_div = document.createElement('div')
+    const wedge_actions_div = document.createElement('div')
     wedge_actions_div.className = 'wedge_actions'
     wedge_div.appendChild(wedge_actions_div)
 
@@ -121,7 +121,7 @@ export class PileRenderer extends WellRenderer {
       pile_div.appendChild(card_div)
     }
 
-    let action_div = document.createElement('div')
+    const action_div = document.createElement('div')
     action_div.className = 'pile_actions'
     pile_div.appendChild(action_div)
 

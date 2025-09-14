@@ -1,6 +1,5 @@
 import Game from '../game/game.ts'
 import Pile from '../game/pile.ts'
-import Wedge from '../game/wedge.ts'
 
 export default class ButtonRenderer {
   constructor(private app_div: HTMLDivElement,
@@ -13,7 +12,7 @@ export default class ButtonRenderer {
     this.want_to_update = false
     this.app_div.querySelectorAll('button').forEach(b => b.remove())
 
-    let wedge_is_vacant = this.game.wedge.isVacant()
+    const wedge_is_vacant = this.game.wedge.isVacant()
 
     if (! wedge_is_vacant) {
       const wedge_div = document.getElementById('wedge')
@@ -26,7 +25,7 @@ export default class ButtonRenderer {
         const pile = this.game.piles[i]
         if (! pile.canAcceptCard(this.game.wedge.card!)) continue
 
-        let wedge_to_pile_button = document.createElement('button')
+        const wedge_to_pile_button = document.createElement('button')
         wedge_to_pile_button.textContent = `pile ${i}`
         wedge_to_pile_button.dataset.pileIdx = i.toString()
         wedge_to_pile_button.addEventListener('click', 
@@ -46,7 +45,7 @@ export default class ButtonRenderer {
       if (! pile_div) throw new Error(`could not find #pile_${i}`)
 
       if (wedge_is_vacant) {
-        let wedge_button = document.createElement('button')
+        const wedge_button = document.createElement('button')
         wedge_button.textContent = 'wedge'
         wedge_button.addEventListener('click', 
           this.moveFromPileToWedge.bind(this, pile))       
@@ -58,7 +57,7 @@ export default class ButtonRenderer {
         const target_pile = this.game.piles[j]
         if (! target_pile.canAcceptCard(pile.peekCard())) continue
 
-        let pile_to_pile_button = document.createElement('button')
+        const pile_to_pile_button = document.createElement('button')
         pile_to_pile_button.textContent = `pile ${j}`
         pile_to_pile_button.dataset.pileIdx = j.toString()
         pile_to_pile_button.addEventListener('click', 
@@ -77,27 +76,27 @@ export default class ButtonRenderer {
   }
 
   private moveFromPileToWedge(pile: Pile, _event: MouseEvent) {
-    let card = pile.popCard()
+    const card = pile.popCard()
     this.game.wedge.acceptCard(card)
     this.game.sweep()
     this.planToUpdate()
   }
 
   private moveFromWedgeToPile(event: MouseEvent) {
-    let target = event.target as HTMLElement
-    let pile_idx = Number(target.dataset.pileIdx)
-    let pile = this.game.piles[pile_idx]
-    let card = this.game.wedge.popCard()
+    const target = event.target as HTMLElement
+    const pile_idx = Number(target.dataset.pileIdx)
+    const pile = this.game.piles[pile_idx]
+    const card = this.game.wedge.popCard()
     pile.acceptCard(card)
     this.game.sweep()
     this.planToUpdate()
   }
 
   private moveFromPileToPile(source: Pile, event: MouseEvent) {
-    let target = event.target as HTMLElement
-    let pile_idx = Number(target.dataset.pileIdx)
-    let target_pile = this.game.piles[pile_idx]
-    let card = source.popCard()
+    const target = event.target as HTMLElement
+    const pile_idx = Number(target.dataset.pileIdx)
+    const target_pile = this.game.piles[pile_idx]
+    const card = source.popCard()
     target_pile.acceptCard(card)
     this.game.sweep()
     this.planToUpdate()

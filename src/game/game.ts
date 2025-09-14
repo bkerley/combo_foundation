@@ -41,7 +41,9 @@ export default class Game {
 
   sweep() {
     // add sweep combos here
-    while (this.sweepOnce()) { }
+    while (this.sweepOnce()) { 
+      // keep sweeping 
+    }
   }
 
   public findCardById(id: string): Card | undefined {

@@ -1,4 +1,3 @@
-import { assert } from "console"
 import { Card, MinorArcana } from "./cards.ts"
 
 export default class MinorWell {

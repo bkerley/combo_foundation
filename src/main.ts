@@ -10,19 +10,19 @@ import ButtonRenderer from './renderers/button_renderer.ts'
 const game = new Game()
 game.sweep()
 
-let app_div = document.querySelector<HTMLDivElement>('#app')!
+const app_div = document.querySelector<HTMLDivElement>('#app')!
 
-let fortune_well_renderer = new FortuneWellRenderer(game.fortuneWell)
-let wedge_renderer = new WedgeRenderer(game.wedge)
-let minor_well_renderers = 
+const fortune_well_renderer = new FortuneWellRenderer(game.fortuneWell)
+const wedge_renderer = new WedgeRenderer(game.wedge)
+const minor_well_renderers = 
   Array.from(game.minorWells.values()).
   map((well: MinorWell) => new MinorWellRenderer(well))
-let pile_renderers = game.piles.
+const pile_renderers = game.piles.
   map((pile: Pile) => new PileRenderer(pile))
 
-let hover_renderer = new HoverRenderer(app_div, game)
+const hover_renderer = new HoverRenderer(app_div, game)
 
-let button_renderer = new ButtonRenderer(app_div, game)
+const button_renderer = new ButtonRenderer(app_div, game)
 
 draw(game)
 
@@ -30,7 +30,7 @@ app_div.addEventListener(game.game_updated_event.type, () => {
   draw(game)
 })
 
-function draw(game: Game) {
+function draw(_game: Game) {
   app_div.innerHTML = ''
 
   app_div.appendChild(fortune_well_renderer.render())

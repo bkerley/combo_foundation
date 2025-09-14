@@ -7,7 +7,7 @@ export default class Wedge {
     return this.card === null
   }
 
-  canAcceptCard(card: Card): boolean {
+  canAcceptCard(_card: Card): boolean {
     return this.card === null
   }
 
