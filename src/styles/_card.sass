@@ -1,0 +1,42 @@
+.card
+  box-sizing: border-box
+  border: 1px solid #f0f
+  border-radius: 3px
+  min-height: 3rem
+  padding: 0 0 8px 8px
+  margin: 0.125rem 0 0.125rem
+  font-size: 0.8rem
+  background-color: #f0f
+
+  .spotlight
+    text-align: right
+    font-size: 1rem
+    margin: 0
+    padding: 0
+
+  &.hovered
+    border-color: #6f6
+
+  &.minor.minor, &.major.major
+    &.neighbor_hover.neighbor_hover
+      border-width: 4px
+      border-color: #66f
+      padding: 0
+
+  &.major
+    border-color: #cc0
+    background-color: #220
+  
+  &.minor
+    &.wands
+      border-color: #4a8
+      background-color: #152
+    &.cups
+      border-color: #b44
+      background-color: #611
+    &.pentacles
+      border-color: #fb4
+      background-color: #442
+    &.swords
+      border-color: #48f
+      background-color: #125

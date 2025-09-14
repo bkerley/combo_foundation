@@ -1,11 +1,11 @@
 // import { setupCounter } from './counter.ts'
 import Game from './game/game.ts'
 import MinorWell from './game/minor_well.ts'
+import Pile from './game/pile.ts'
 
 import { FortuneWellRenderer, WedgeRenderer, MinorWellRenderer, PileRenderer } from './renderers/well_renderers.ts'
 import HoverRenderer from './renderers/hover_renderer.ts'
-import Pile from './game/pile.ts'
-
+import ButtonRenderer from './renderers/button_renderer.ts'
 
 const game = new Game()
 game.sweep()
@@ -20,10 +20,15 @@ let minor_well_renderers =
 let pile_renderers = game.piles.
   map((pile: Pile) => new PileRenderer(pile))
 
-let hover_renderer = new HoverRenderer(app_div)
-hover_renderer.render()
+let hover_renderer = new HoverRenderer(app_div, game)
+
+let button_renderer = new ButtonRenderer(app_div, game)
 
 draw(game)
+
+app_div.addEventListener(game.game_updated_event.type, () => {
+  draw(game)
+})
 
 function draw(game: Game) {
   app_div.innerHTML = ''
@@ -45,11 +50,16 @@ function draw(game: Game) {
   piles_div.start = 0
   app_div.appendChild(piles_div)
 
-  for (const renderer of pile_renderers) {
+  for (let i = 0; i < pile_renderers.length; i++) {
+    const renderer = pile_renderers[i]
     const pile_div = document.createElement('li')
     pile_div.className = 'pile'
+    pile_div.id = `pile_${i}`
     piles_div.appendChild(pile_div)
 
     pile_div.appendChild(renderer.render())
   }
+
+  hover_renderer.render()
+  button_renderer.render()
 }

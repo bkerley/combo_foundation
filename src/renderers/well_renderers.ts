@@ -1,4 +1,4 @@
-import { Card } from "../game/cards.ts"
+import { Card, MajorArcana, MinorArcana } from "../game/cards.ts"
 import FortuneWell from "../game/fortune_well.ts"
 import MinorWell from "../game/minor_well.ts"
 import Wedge from "../game/wedge.ts"
@@ -17,10 +17,19 @@ export class AbstractWellRendererError extends Error {
 class WellRenderer {
   renderCard(card: Card) {
     const card_div = document.createElement('div')
-    card_div.className = 'card'
+    card_div.className = 'card ' + card.cssClass()
     card_div.id = card.id()
     card_div.dataset.neighbors = card.neighbor_ids().join(' ')
-    card_div.textContent = card.name()
+    const spotlight_div = document.createElement('div')
+    spotlight_div.className = 'spotlight'
+    if (card instanceof MajorArcana) {
+      spotlight_div.textContent = `${card.number}`
+    } if (card instanceof MinorArcana) {
+      spotlight_div.textContent = `${card.rank}`
+    }
+
+    card_div.appendChild(spotlight_div)
+    card_div.append(card.name())
     return card_div
   }
 }
@@ -59,6 +68,10 @@ export class WedgeRenderer extends WellRenderer {
       wedge_div.textContent = '(empty)'
       wedge_div.className = 'empty'
     }
+
+    let wedge_actions_div = document.createElement('div')
+    wedge_actions_div.className = 'wedge_actions'
+    wedge_div.appendChild(wedge_actions_div)
 
     return wedge_div
   }
@@ -100,11 +113,17 @@ export class PileRenderer extends WellRenderer {
   render() {
     const pile_div = document.createElement('div')
     pile_div.className = 'pile'
+    pile_div.id = `pile_${this.pile.idx}`
+    pile_div.dataset.pile_idx = this.pile.idx.toString()
 
     for (const card of this.pile.cards) {
       const card_div = this.renderCard(card)
       pile_div.appendChild(card_div)
     }
+
+    let action_div = document.createElement('div')
+    action_div.className = 'pile_actions'
+    pile_div.appendChild(action_div)
 
     return pile_div
   }

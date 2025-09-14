@@ -3,6 +3,10 @@ import { Card } from './cards.ts'
 export default class Wedge {
   public card: Card | null = null
 
+  isVacant(): boolean {
+    return this.card === null
+  }
+
   canAcceptCard(card: Card): boolean {
     return this.card === null
   }

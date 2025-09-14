@@ -1,4 +1,4 @@
-import { SuitNames, MinorArcana } from './cards.ts'
+import { SuitNames, MinorArcana, Card } from './cards.ts'
 import Pile from './pile.ts'
 import FortuneWell from './fortune_well.ts'
 import MinorWell from './minor_well.ts'
@@ -8,20 +8,26 @@ import shuffle from './shuffle.ts'
 
 export default class Game {
   public fortuneWell = new FortuneWell()
-  public piles = new Array<Pile>(11).
-    fill(new Pile()). // placeholder
-    map(_ => new Pile())
+  public piles: Pile[] = []
   public minorWells = new Map<string, MinorWell>(
     SuitNames.map(suit => [suit, new MinorWell(suit)]),
   )
   public wedge = new Wedge()
+  private cards_by_id = new Map<string, Card>()
+
+  public game_updated_event = new Event('game_updated')
 
   constructor() {
     const deck = shuffle()
 
     let pile_idx = 0
+    for (let i = 0; i < 11; i++) {
+      this.piles[i] = new Pile(i)
+    }
 
     for (const card of deck) {
+      this.cards_by_id.set(card.id(), card)
+
       if (card instanceof MinorArcana && card.rank == 1) {
         this.minorWells.get(card.suit)?.acceptCard(card)
         continue
@@ -38,6 +44,10 @@ export default class Game {
     while (this.sweepOnce()) { }
   }
 
+  public findCardById(id: string): Card | undefined {
+    return this.cards_by_id.get(id)
+  }
+
   private sweepOnce() {
     for (const pile of this.piles) {
       if (pile.cards.length == 0) continue
@@ -50,7 +60,7 @@ export default class Game {
         return true
       }
 
-      if (this.wedge.canAcceptCard(top_card)) {
+      if (this.wedge.isVacant()) {
         for (const well of this.minorWells.values()) {
           if (well.canAcceptCard(top_card)) {
             pile.popCard()

@@ -20,6 +20,10 @@ export class Card {
   neighbor_ids() : string[] {
     throw new AbstractCardError()
   }
+
+  cssClass() : string {
+    throw new AbstractCardError()
+  }
 }
 
 export class MajorArcana extends Card {
@@ -49,6 +53,10 @@ export class MajorArcana extends Card {
 
   id() : string {
     return `major-${this.number}`
+  }
+
+  cssClass() {
+    return `major major-${this.number} spotlight-${this.number}`
   }
 
   neighbor_ids() : string[] {
@@ -99,6 +107,10 @@ export class MinorArcana extends Card {
 
   id() : string {
     return `${this.suit}-${this.rank}`
+  }
+
+  cssClass() {
+    return `minor ${this.suit} ${this.suit}-${this.rank} minor-${this.rank} spotlight-${this.rank}`
   }
 
   neighbor_ids() : string[] {

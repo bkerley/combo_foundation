@@ -3,7 +3,10 @@ import { Card } from './cards.ts'
 export default class Pile {
   public cards: Card[] = []
 
-  canAcceptCard(card: Card): boolean {
+  constructor(public idx: number) {}
+
+  canAcceptCard(card: Card | null): boolean {
+    if (!card) return false
     if (this.cards.length == 0) return true
 
     const top_card = this.cards[this.cards.length - 1]
@@ -16,6 +19,12 @@ export default class Pile {
     }
 
     this.cards.push(card)
+  }
+
+  peekCard(): Card | null {
+    if (this.cards.length == 0) return null
+
+    return this.cards[this.cards.length - 1]
   }
 
   popCard(): Card {
