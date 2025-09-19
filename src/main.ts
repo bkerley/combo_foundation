@@ -33,6 +33,8 @@ app_div.addEventListener(game.game_updated_event.type, () => {
 function draw(_game: Game) {
   app_div.innerHTML = ''
 
+  app_div.appendChild(button_renderer.render_utility_bar())
+
   app_div.appendChild(fortune_well_renderer.render())
 
   app_div.appendChild(wedge_renderer.render())
