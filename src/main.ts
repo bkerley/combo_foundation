@@ -7,27 +7,37 @@ import { FortuneWellRenderer, WedgeRenderer, MinorWellRenderer, PileRenderer } f
 import HoverRenderer from './renderers/hover_renderer.ts'
 import ButtonRenderer from './renderers/button_renderer.ts'
 
-const game = new Game()
-game.sweep()
+const games = [new Game()]
+games[0].sweep()
 
 const app_div = document.querySelector<HTMLDivElement>('#app')!
 
-const fortune_well_renderer = new FortuneWellRenderer(game.fortuneWell)
-const wedge_renderer = new WedgeRenderer(game.wedge)
+const fortune_well_renderer = new FortuneWellRenderer(games[0].fortuneWell)
+const wedge_renderer = new WedgeRenderer(games[0].wedge)
 const minor_well_renderers = 
-  Array.from(game.minorWells.values()).
+  Array.from(games[0].minorWells.values()).
   map((well: MinorWell) => new MinorWellRenderer(well))
-const pile_renderers = game.piles.
+const pile_renderers = games[0].piles.
   map((pile: Pile) => new PileRenderer(pile))
 
-const hover_renderer = new HoverRenderer(app_div, game)
+const hover_renderer = new HoverRenderer(app_div)
 
-const button_renderer = new ButtonRenderer(app_div, game)
+const button_renderer = new ButtonRenderer(app_div)
 
-draw(game)
+draw(games[0])
+games.unshift(games[0].shallowClone())
 
-app_div.addEventListener(game.game_updated_event.type, () => {
-  draw(game)
+app_div.addEventListener(games[0].game_updated_event.type, () => {
+  draw(games[0])
+  games.unshift(games[0].shallowClone())
+})
+
+app_div.addEventListener(games[0].game_undo_event.type, () => {
+  let _old_game = games.shift()
+  if (0 == games.length) {
+    throw new Error('no more games to undo to')
+  }
+  draw(games[0])
 })
 
 function draw(_game: Game) {
@@ -62,6 +72,6 @@ function draw(_game: Game) {
     pile_div.appendChild(renderer.render())
   }
 
-  hover_renderer.render()
-  button_renderer.render()
+  hover_renderer.render(games[0])
+  button_renderer.render(games[0])
 }
