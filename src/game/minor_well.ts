@@ -32,4 +32,11 @@ export default class MinorWell {
   isComplete() {
     return this.cards.size == 14
   }
+
+  shallowClone(): MinorWell {
+    const new_well = new MinorWell(this.suit)
+    new_well.cards = this.cards
+    new_well.lowest_acceptable_rank = this.lowest_acceptable_rank
+    return new_well
+  }
 }

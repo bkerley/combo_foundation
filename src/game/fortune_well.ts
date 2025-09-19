@@ -45,4 +45,12 @@ export default class FortuneWell {
   isComplete() {
     return this.cards.size == Majors.length
   }
+
+  shallowClone(): FortuneWell {
+    const new_well = new FortuneWell()
+    new_well.cards = new Set(this.cards)
+    new_well.lowest_acceptable_number = this.lowest_acceptable_number
+    new_well.highest_acceptable_number = this.highest_acceptable_number
+    return new_well
+  } 
 }

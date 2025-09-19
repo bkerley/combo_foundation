@@ -28,4 +28,10 @@ export default class Wedge {
     this.card = null
     return found
   }
+
+  shallowClone(): Wedge {
+    const new_wedge = new Wedge()
+    new_wedge.card = this.card
+    return new_wedge
+  }
 }

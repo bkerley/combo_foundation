@@ -1,13 +1,11 @@
 import Game from '../game/game.ts'
 
 export default class HoverRenderer {
-  constructor(private app_div: HTMLDivElement,
-    private game: Game
-  ) {}
+  constructor(private app_div: HTMLDivElement) {}
 
-  public render() {
+  public render(game: Game) {
     this.app_div.addEventListener('mouseover', 
-        this.card_moused_over.bind(this),
+        this.card_moused_over.bind(this, game),
       { passive: true })
   }
 
@@ -15,7 +13,7 @@ export default class HoverRenderer {
   private neighbors: HTMLElement[] = []
   private move_candidates: HTMLElement[] = []
 
-  private card_moused_over(event: MouseEvent) {
+  private card_moused_over(game: Game, event: MouseEvent) {
     const target = event.target as HTMLElement
     if (! target.classList.contains('card')) return
 
@@ -25,7 +23,7 @@ export default class HoverRenderer {
     this.hovered_card.classList.add('hovered')
 
     this.highlightNeighbors(target)
-    this.highlightMoveCandidates(target)
+    this.highlightMoveCandidates(target, game)
 
     this.app_div.addEventListener('mouseout', this.un_hover.bind(this), { once: true, passive: true })
   }
@@ -50,12 +48,12 @@ export default class HoverRenderer {
     this.neighbors = []
   }
 
-  private highlightMoveCandidates(target: HTMLElement) {
-    const card = this.game.findCardById(target.id)
+  private highlightMoveCandidates(target: HTMLElement, game: Game) {
+    const card = game.findCardById(target.id)
     if (! card) return
 
-    for (let i = 0; i < this.game.piles.length; i++) {
-      const pile = this.game.piles[i]
+    for (let i = 0; i < game.piles.length; i++) {
+      const pile = game.piles[i]
       if (pile.canAcceptCard(card)) {
         const pile_div = document.getElementById(`pile_${i}`)
         if (pile_div) {
@@ -65,7 +63,7 @@ export default class HoverRenderer {
       }
     }
 
-    if (this.game.fortuneWell.canAcceptCard(card)) {
+    if (game.fortuneWell.canAcceptCard(card)) {
       const fortune_well_div = document.getElementById('fortune_well')
       if (fortune_well_div) {
         fortune_well_div.classList.add('move_candidate')
@@ -73,7 +71,7 @@ export default class HoverRenderer {
       }
     }
 
-    if (this.game.wedge.canAcceptCard(card)) {
+    if (game.wedge.canAcceptCard(card)) {
       const wedge_div = document.getElementById('wedge')
       if (wedge_div) {
         wedge_div.classList.add('move_candidate')
@@ -81,7 +79,7 @@ export default class HoverRenderer {
       }
     }
 
-    for (const well of this.game.minorWells.values()) {
+    for (const well of game.minorWells.values()) {
       if (well.canAcceptCard(card)) {
         const well_div = document.getElementById(`minor_well_${well.suit}`)
         if (well_div) {

@@ -34,4 +34,10 @@ export default class Pile {
 
     return found
   }
+
+  shallowClone(): Pile {
+    const new_pile = new Pile(this.idx)
+    new_pile.cards = [...this.cards]
+    return new_pile
+  }
 }
