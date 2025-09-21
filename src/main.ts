@@ -1,7 +1,5 @@
 // import { setupCounter } from './counter.ts'
 import Game from './game/game.ts'
-import MinorWell from './game/minor_well.ts'
-import Pile from './game/pile.ts'
 
 import { FortuneWellRenderer, WedgeRenderer, MinorWellRenderer, PileRenderer } from './renderers/well_renderers.ts'
 import HoverRenderer from './renderers/hover_renderer.ts'
@@ -35,8 +33,8 @@ app_div.addEventListener(games[0].game_undo_event.type, () => {
   if (1 == games.length) {
     throw new Error('no more games to undo to')
   }
-  if (current_game_is_clone) {let _scratch_game = games.shift()}
-  let _undid_game = games.shift()
+  if (current_game_is_clone) {const _scratch_game = games.shift()}
+  const _undid_game = games.shift()
   current_game_is_clone = false
 
   draw(games[0])

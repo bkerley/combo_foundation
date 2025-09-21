@@ -1,4 +1,4 @@
-import { Card, MajorArcana, MinorArcana } from "../game/cards.ts"
+import { Card } from "../game/cards.ts"
 import FortuneWell from "../game/fortune_well.ts"
 import MinorWell from "../game/minor_well.ts"
 import Wedge from "../game/wedge.ts"
