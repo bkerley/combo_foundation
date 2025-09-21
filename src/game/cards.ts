@@ -13,6 +13,10 @@ export class Card {
     throw new AbstractCardError()
   }
 
+  symbol() : string {
+    throw new AbstractCardError()
+  }
+
   id() : string {
     throw new AbstractCardError()
   }
@@ -48,7 +52,11 @@ export class MajorArcana extends Card {
   }
 
   name() : string {
-    return `${this.arcana_name} (#${this.number})`
+    return `${this.arcana_name}`
+  }
+
+  symbol() : string {
+    return `#${this.number}`
   }
 
   id() : string {
@@ -74,6 +82,12 @@ export class MajorArcana extends Card {
 
 export const SuitNames: string[] = ['wands', 'cups', 'swords', 'pentacles']
 const RankNames = ['ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king']
+export const Suits = new Map([
+  ['wands', '⚡︎'],
+  ['cups', '⩁'],
+  ['swords', '𐃉'],
+  ['pentacles', '⭔']
+])
 
 
 export class MinorArcana extends Card {
@@ -103,6 +117,10 @@ export class MinorArcana extends Card {
 
   name() : string {
     return `${RankNames[this.rank - 1]} of ${this.suit}`
+  }
+
+  symbol() : string {
+    return `${Suits.get(this.suit) || '?'}${this.rank}`
   }
 
   id() : string {
