@@ -85,8 +85,8 @@ export default class ButtonRenderer {
         }, 0)
       })
       utility_bar.appendChild(undo_button)
+      utility_bar.appendChild(document.createTextNode(`${games.length - 1} undos`))
     }
-    utility_bar.appendChild(document.createTextNode(`${games.length} undos`))
   }
 
   private planToUpdate(game: Game) {

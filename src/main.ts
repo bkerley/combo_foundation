@@ -21,10 +21,12 @@ const hover_renderer = new HoverRenderer(app_div)
 
 const button_renderer = new ButtonRenderer(app_div)
 
-games.unshift(games[0].shallowClone())
 draw(games[0])
 
+let current_game_is_clone = false
+
 app_div.addEventListener(games[0].game_updated_event.type, () => {
+  current_game_is_clone = true
   games.unshift(games[0].shallowClone())
   draw(games[0])
 })
@@ -33,7 +35,10 @@ app_div.addEventListener(games[0].game_undo_event.type, () => {
   if (1 == games.length) {
     throw new Error('no more games to undo to')
   }
-  let _old_game = games.shift()
+  if (current_game_is_clone) {let _scratch_game = games.shift()}
+  let _undid_game = games.shift()
+  current_game_is_clone = false
+
   draw(games[0])
 })
 
