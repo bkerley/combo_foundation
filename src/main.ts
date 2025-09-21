@@ -11,7 +11,7 @@ games[0].sweep()
 const app_div = document.querySelector<HTMLDivElement>('#app')!
 
 const fortune_well_renderer = new FortuneWellRenderer()
-const wedge_renderer = new WedgeRenderer(games[0].wedge)
+const wedge_renderer = new WedgeRenderer()
 const minor_well_renderer = new MinorWellRenderer()
 const pile_renderer = new PileRenderer()
 
