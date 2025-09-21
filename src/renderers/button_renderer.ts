@@ -13,7 +13,8 @@ export default class ButtonRenderer {
     return utility_bar
   }
 
-  public render(game: Game) {
+  public render(games: Game[]) {
+    const game = games[0]
     this.want_to_update = false
     this.app_div.querySelectorAll('button').forEach(b => b.remove())
 
@@ -73,16 +74,19 @@ export default class ButtonRenderer {
 
     const utility_bar = document.getElementById('utility_bar')
     if (! utility_bar) throw new Error('could not find #utility_bar')
-      
-    const undo_button = document.createElement('button')
-    undo_button.textContent = 'undo'
 
-    undo_button.addEventListener('click', () => {
-      setTimeout(() => {
-        this.app_div.dispatchEvent(game.game_undo_event)
-      }, 0)
-    })
-    utility_bar.appendChild(undo_button)
+    if (games.length > 1) {
+      const undo_button = document.createElement('button')
+      undo_button.textContent = 'undo'
+
+      undo_button.addEventListener('click', () => {
+        setTimeout(() => {
+          this.app_div.dispatchEvent(game.game_undo_event)
+        }, 0)
+      })
+      utility_bar.appendChild(undo_button)
+    }
+    utility_bar.appendChild(document.createTextNode(`${games.length} undos`))
   }
 
   private planToUpdate(game: Game) {

@@ -22,11 +22,7 @@ class WellRenderer {
     card_div.dataset.neighbors = card.neighbor_ids().join(' ')
     const spotlight_div = document.createElement('div')
     spotlight_div.className = 'spotlight'
-    if (card instanceof MajorArcana) {
-      spotlight_div.textContent = `${card.number}`
-    } if (card instanceof MinorArcana) {
-      spotlight_div.textContent = `${card.rank}`
-    }
+    spotlight_div.textContent = card.symbol()
 
     card_div.appendChild(spotlight_div)
     card_div.append(card.name())
@@ -35,15 +31,11 @@ class WellRenderer {
 }
 
 export class FortuneWellRenderer extends WellRenderer {
-  constructor(private fortuneWell: FortuneWell) {
-    super()
-  }
-
-  render() {
+  render(fortuneWell: FortuneWell) {
     const fortune_well_div = document.createElement('div')
     fortune_well_div.id = 'fortune_well'
 
-    for (const card of this.fortuneWell.cards) {
+    for (const card of fortuneWell.cards) {
       const card_div = this.renderCard(card)
       fortune_well_div.appendChild(card_div)
     }
@@ -53,16 +45,12 @@ export class FortuneWellRenderer extends WellRenderer {
 }
 
 export class WedgeRenderer extends WellRenderer {
-  constructor(private wedge: Wedge) {
-    super()
-  }
-
-  render() {
+  render(wedge: Wedge) {
     const wedge_div = document.createElement('div')
     wedge_div.id = 'wedge'
 
-    if (this.wedge.card) {
-      const card_div = this.renderCard(this.wedge.card)
+    if (wedge.card) {
+      const card_div = this.renderCard(wedge.card)
       wedge_div.appendChild(card_div)
     } else {
       wedge_div.textContent = '(empty)'
@@ -78,24 +66,20 @@ export class WedgeRenderer extends WellRenderer {
 }
 
 export class MinorWellRenderer extends WellRenderer {
-  constructor(private minorWell: MinorWell) {
-    super()
-  }
-
-  render() {
+  render(minorWell: MinorWell) {
     const suit_container = document.createElement('div')
     suit_container.className = 'minor_well_container'
     
     const suit_header = document.createElement('h3')
-    suit_header.textContent = this.minorWell.suit
+    suit_header.textContent = minorWell.suit
     suit_header.className = 'suit_header'
     suit_container.appendChild(suit_header)
 
     const well_div = document.createElement('div')
     well_div.className = 'minor_well'
-    well_div.id = `minor_well_${this.minorWell.suit}`
-    
-    for (const card of this.minorWell.cards) {
+    well_div.id = `minor_well_${minorWell.suit}`
+
+    for (const card of minorWell.cards) {
       const card_div = this.renderCard(card)
       well_div.appendChild(card_div)
     }
@@ -106,17 +90,13 @@ export class MinorWellRenderer extends WellRenderer {
 }
 
 export class PileRenderer extends WellRenderer {
-  constructor(private pile: Pile) {
-    super()
-  }
-
-  render() {
+  render(pile: Pile) {
     const pile_div = document.createElement('div')
     pile_div.className = 'pile'
-    pile_div.id = `pile_${this.pile.idx}`
-    pile_div.dataset.pile_idx = this.pile.idx.toString()
+    pile_div.id = `pile_${pile.idx}`
+    pile_div.dataset.pile_idx = pile.idx.toString()
 
-    for (const card of this.pile.cards) {
+    for (const card of pile.cards) {
       const card_div = this.renderCard(card)
       pile_div.appendChild(card_div)
     }

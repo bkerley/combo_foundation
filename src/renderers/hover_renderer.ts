@@ -14,8 +14,11 @@ export default class HoverRenderer {
   private move_candidates: HTMLElement[] = []
 
   private card_moused_over(game: Game, event: MouseEvent) {
-    const target = event.target as HTMLElement
-    if (! target.classList.contains('card')) return
+    let target = event.target as HTMLElement
+    if (target.parentElement?.classList.contains('card')) {
+      target = target.parentElement
+    }
+    if (!target.classList.contains('card')) return
 
     this.un_hover()
 
