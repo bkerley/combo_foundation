@@ -15,8 +15,8 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false, // linter lets me _prefix these
+    "noUnusedParameters": false, // same
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src/**/*"],

@@ -16,6 +16,7 @@ export default class Game {
   private cards_by_id = new Map<string, Card>()
 
   public game_updated_event = new Event('game_updated')
+  public game_undo_event = new Event('game_undo')
 
   constructor() {
     const deck = shuffle()
@@ -39,15 +40,30 @@ export default class Game {
     }
   }
 
-  sweep() {
+  public findCardById(id: string): Card | undefined {
+    return this.cards_by_id.get(id)
+  }
+
+  public shallowClone(): Game {
+    // don't clone the cards themselves, they're immutable
+    const new_game = new Game()
+    new_game.fortuneWell = this.fortuneWell.shallowClone()
+    new_game.piles = this.piles.map(pile => pile.shallowClone())
+    new_game.minorWells = new Map<string, MinorWell>()
+    for (const [suit, well] of this.minorWells.entries()) {
+      new_game.minorWells.set(suit, well.shallowClone())
+    }
+    new_game.wedge = this.wedge.shallowClone()
+    new_game.cards_by_id = this.cards_by_id
+
+    return new_game
+  }
+
+  public sweep() {
     // add sweep combos here
     while (this.sweepOnce()) { 
       // keep sweeping 
     }
-  }
-
-  public findCardById(id: string): Card | undefined {
-    return this.cards_by_id.get(id)
   }
 
   private sweepOnce() {
